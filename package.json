@@ -1,0 +1,25 @@
+{
+  "name": "repo-stargazers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ufukomer",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.4",
+    "body-parser": "^1.15.1",
+    "cheerio": "^0.20.0",
+    "couchbase": "^2.1.6",
+    "express": "^4.13.4",
+    "octonode": "^0.7.5",
+    "path": "^0.12.7",
+    "q": "^1.4.1",
+    "request": "^2.72.0",
+    "uuid": "^2.0.2"
+  }
+}
