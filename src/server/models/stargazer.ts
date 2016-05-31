@@ -64,7 +64,7 @@ class StarGazer implements IStarGazer {
    * @param data
    * @param callback
    */
-  save(data: IUser, callback?: ICallback): void {
+  public save(data: IUser, callback?: ICallback): void {
     const jsonObject: IUser = {
       login: data.login,
       avatar_url: data.avatar_url,
@@ -100,7 +100,7 @@ class StarGazer implements IStarGazer {
    * @param location
    * @param callback
      */
-  getByLocation(location: string, callback?: ICallback): void {
+  public getByLocation(location: string, callback?: ICallback): void {
     const statement = `SELECT login, avatar_url, url, location FROM ${config.couchbase.bucket} AS users WHERE META(users).location = $1`;
     const query = N1qlQuery.fromString(statement);
     db.query(query, [location], (error, result) => {
@@ -116,7 +116,7 @@ class StarGazer implements IStarGazer {
    *
    * @param callback
    */
-  getAll(callback?: ICallback): void {
+  public getAll(callback?: ICallback): void {
     const statement = `SELECT META(users).id, login, avatar_url, html_url, location FROM ${config.couchbase.bucket} AS users`;
     const query = N1qlQuery.fromString(statement).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
     db.query(query, (error, result) => {
@@ -133,7 +133,7 @@ class StarGazer implements IStarGazer {
    * @param id
    * @param callback
    */
-  delete(id: number, callback?: ICallback): void {
+  public delete(id: number, callback?: ICallback): void {
     db.remove(id, (error, result) => {
       if (error) {
         callback(error, null);
@@ -148,7 +148,7 @@ class StarGazer implements IStarGazer {
    *
    * @param callback
    */
-  getCount(callback?: ICallback): void {
+  public getCount(callback?: ICallback): void {
     const statement = `SELECT COUNT(users) FROM ${config.couchbase.bucket} AS users`;
     const query = N1qlQuery.fromString(statement).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
     db.query(query, (error, result) => {
