@@ -1,0 +1,16 @@
+{
+  "globalDependencies": {
+    "async": "registry:dt/async#1.4.2+20160501155344",
+    "body-parser": "registry:dt/body-parser#0.0.0+20160317120654",
+    "couchbase": "registry:dt/couchbase#2.1.2+20160317120654",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#32f0a90dab26f70b206407ac24d4d622d0f0f408",
+    "form-data": "registry:dt/form-data#0.0.0+20160316155526",
+    "node": "registry:dt/node#6.0.0+20160524002506",
+    "q": "registry:dt/q#0.0.0+20160417152954",
+    "request": "registry:dt/request#0.0.0+20160524135346",
+    "source-map": "registry:dt/source-map#0.0.0+20160317120654",
+    "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
+    "uuid": "registry:dt/uuid#3.3.0+20160316155526",
+    "webpack": "registry:dt/webpack#1.12.9+20160523035535"
+  }
+}
