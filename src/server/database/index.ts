@@ -1,5 +1,5 @@
 import * as couchbase from 'couchbase';
-const config = require('./../../config');
+const config = require('./config');
 
 export const bucket = (
   new couchbase.Cluster(config.couchbase.server)
