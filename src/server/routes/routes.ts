@@ -3,7 +3,7 @@ import express = require('express');
 import StarGazer from '../models/stargazer';
 const Api = require('../helpers/api');
 
-const appRouter = module.exports = (app) => {
+export = (app: express.Express) => {
 
   app.post('/api/saveAll', (req: express.Request, res: express.Response) => {
     const fetchQueue = async.queue(Api.fetchStarGazers, 1);
