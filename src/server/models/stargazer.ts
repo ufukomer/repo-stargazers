@@ -19,7 +19,7 @@ interface IStarGazer {
 /**
  * Data interface.
  *
- * @interface IJsonObject
+ * @interface IUser
  */
 interface IUser {
   id?: number;
@@ -88,9 +88,9 @@ class StarGazer implements IStarGazer {
     db.upsert(id.toString(), jsonObject, (error, result) => {
       if (error) {
         callback(error, null);
-        return;
+      } else {
+        callback(null, { message: 'success', data: result });
       }
-      callback(null, { message: 'success', data: result });
     });
   }
 
@@ -101,13 +101,15 @@ class StarGazer implements IStarGazer {
    * @param callback
      */
   public getByLocation(location: string, callback?: ICallback): void {
+    // tslint:disable-next-line:max-line-length
     const statement = `SELECT login, avatar_url, url, location FROM ${config.couchbase.bucket} AS users WHERE META(users).location = $1`;
     const query = N1qlQuery.fromString(statement);
     db.query(query, [location], (error, result) => {
       if (error) {
-        return callback(error, null);
+        callback(error, null);
+      } else {
+        callback(null, result);
       }
-      callback(null, result);
     });
   };
 
@@ -117,13 +119,15 @@ class StarGazer implements IStarGazer {
    * @param callback
    */
   public getAll(callback?: ICallback): void {
+    // tslint:disable-next-line:max-line-length
     const statement = `SELECT META(users).id, login, avatar_url, html_url, location FROM ${config.couchbase.bucket} AS users`;
     const query = N1qlQuery.fromString(statement).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
     db.query(query, (error, result) => {
       if (error) {
-        return callback(error, null);
+        callback(error, null);
+      } else {
+        callback(null, result);
       }
-      callback(null, result);
     });
   };
 
@@ -137,9 +141,9 @@ class StarGazer implements IStarGazer {
     db.remove(id, (error, result) => {
       if (error) {
         callback(error, null);
-        return;
+      } else {
+        callback(null, { message: 'success', data: result });
       }
-      callback(null, { message: 'success', data: result });
     });
   };
 
@@ -153,9 +157,10 @@ class StarGazer implements IStarGazer {
     const query = N1qlQuery.fromString(statement).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
     db.query(query, (error, result) => {
       if (error) {
-        return callback(error, null);
+        callback(error, null);
+      } else {
+        callback(null, result);
       }
-      callback(null, result);
     });
   };
 }

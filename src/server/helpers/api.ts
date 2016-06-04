@@ -5,30 +5,44 @@ import * as Q from 'q';
 
 const client = github.client('aa67f84d72bd5b641d166c9f810293f0494c06da');
 
-const ghrepo = client.repo('golang/go');
+const ghrepo = client.repo('ufukomer/node-impala');
 
-export function fetchPageCount(callback?: any) {
+/**
+ * Callback Interface.
+ *
+ * @interface ICallback
+ */
+interface ICallback {
+  (error?: any, result?: Object): any;
+}
+
+export function fetchPageCount(callback?: ICallback): any {
   const deferred = Q.defer();
   const options = {
-    uri: 'https://api.github.com/repos/golang/go/stargazers',
+    uri: 'https://api.github.com/repos/ufukomer/node-impala/stargazers',
     headers: {
       'User-Agent': 'repo-stargazers'
     }
   };
 
   request(options, (error?: any, response?: any) => {
-    const str = 'page=';
-    const link = response.headers.link;
-    const i = link.lastIndexOf(str);
     let text = '';
-    for (let j = i + str.length; j < link.length; j++) {
-      if (link.charAt(j) === '>') {
-        break;
+    if (response.headers.link) {
+      const str = 'page=';
+      const link = response.headers.link;
+      const i = link.lastIndexOf(str);
+      for (let j = i + str.length; j < link.length; j++) {
+        if (link.charAt(j) === '>') {
+          break;
+        }
+        text += link.charAt(j);
       }
-      text += link.charAt(j);
+    } else {
+      text = '1';
     }
     deferred.resolve(text);
-  }).on('error', (error) => {
+  })
+  .on('error', (error) => {
     deferred.reject(error);
   });
 
@@ -36,10 +50,10 @@ export function fetchPageCount(callback?: any) {
   return deferred.promise;
 }
 
-export function fetchUserWithLocation(user: any, callback?) {
+export function fetchUserWithLocation(user: any, callback?: ICallback): any {
   const deferred = Q.defer();
   const options = {
-    uri: 'https://github.com/' + user.login
+    uri: `https://github.com/${user.login}`
   };
 
   request(options, (error?: any, response?: any, body?: any) => {
@@ -54,19 +68,19 @@ export function fetchUserWithLocation(user: any, callback?) {
   return deferred.promise;
 }
 
-export function fetchStarGazers(task?: any, callback?) {
+export function fetchStarGazers(task?: any, callback?: ICallback): void {
   ghrepo.stargazers(task.index, (error?: any, res?: any) => {
     if (error) {
-      throw new Error(error);
+      callback(error);
     } else {
       res.map((user) => {
         fetchUserWithLocation(user)
           .then((userWithLocation) => {
             task.store(userWithLocation);
-            callback();
+            task.run(userWithLocation);
           })
           .catch((error) => {
-            throw new Error(error);
+            callback(error);
           });
       });
     }

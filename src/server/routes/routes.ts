@@ -10,7 +10,6 @@ export = (app: express.Express) => {
     const databaseQueue = async.queue(StarGazer.save, 1);
 
     const save = (user) => {
-      console.log(user.login);
       databaseQueue.push(user, (error: any) => {
         if (error) {
           throw new Error(error);
@@ -18,13 +17,18 @@ export = (app: express.Express) => {
       });
     };
 
+    const saveUserAction = (user) => {
+      console.info(`User ${user.login} is saved with location ${user.location}`);
+    };
+
     Api.fetchPageCount()
       .then((count) => {
-        for (let i = 1; i < count; i++) {
+        for (let i = 1; i <= count; i++) {
           fetchQueue.push({
             index: i,
-            store: save
-          }, (error: any) => {
+            store: save,
+            run: saveUserAction
+          }, (error?: any, result?: string) => {
             if (error) {
               throw new Error(error);
             }
