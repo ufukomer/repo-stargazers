@@ -36,6 +36,7 @@ export = (app: express.Express) => {
         }
       })
       .catch((error) => {
+        console.error(error);
         return res.status(400).send(error);
       })
       .done(() => {
@@ -49,6 +50,7 @@ export = (app: express.Express) => {
     }
     StarGazer.save(req.body, (error, result) => {
       if (error) {
+        console.error(error);
         return res.status(400).send(error);
       }
       res.send(result);
@@ -61,6 +63,7 @@ export = (app: express.Express) => {
     }
     StarGazer.getByLocation(req.query.location, (error, result) => {
       if (error) {
+        console.error(error);
         return res.status(400).send(error);
       }
       res.send(result);
@@ -73,6 +76,7 @@ export = (app: express.Express) => {
     }
     StarGazer.delete(req.body.id, (error, result) => {
       if (error) {
+        console.error(error);
         return res.status(400).send(error);
       }
       res.send(result);
