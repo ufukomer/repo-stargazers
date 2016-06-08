@@ -9,7 +9,6 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "Ömer Ufuk Efendioğlu <ufukomer@gmail.com> (http://ufukomer.com)",
   "contributors": [
     {
@@ -35,6 +34,8 @@
     "octonode": "^0.7.6",
     "path": "*",
     "q": "^2.0.3",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
     "request": "*",
     "ts-node": "^0.7.3",
     "tsd": "^0.6.5",
