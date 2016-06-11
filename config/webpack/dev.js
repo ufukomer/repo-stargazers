@@ -6,20 +6,26 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
+
   debug: 'true',
+
   resolve: {
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx"]
+    root: path.resolve(__dirname),
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
+
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    './src/client/index.js'
+    './src/client/index.tsx'
   ],
+
   output: {
     path: path.resolve('./build/public'),
     publicPath: '/public/',
     filename: 'js/[name].js',
     pathinfo: true
   },
+
   module: {
     preLoaders: [
       {
@@ -49,6 +55,7 @@ module.exports = {
       }
     ]
   },
+
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

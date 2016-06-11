@@ -75,10 +75,7 @@ class Server implements IServer {
 
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(express.static(path.join(__dirname, '../client/')));
-
-    // app.use(express.static(path.join(__dirname, "../../build/public/")));
-    this.app.use(express.static(path.join(__dirname, '../client/')));
+    this.app.use(express.static(path.join(__dirname, '../../build/public/')));
   }
 
   /**

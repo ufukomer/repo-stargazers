@@ -16,10 +16,13 @@ const initialState: IStargazer = {
 export function stargazerReducer(state = initialState, action: IStargazerAction) {
   switch (action.type) {
     case SAVE_REQUEST:
+      console.info(action);
       break;
     case SAVE_SUCCESS:
+      console.info(action);
       break;
     case SAVE_FAILURE:
+      console.info(action);
       break;
     default:
       return state;

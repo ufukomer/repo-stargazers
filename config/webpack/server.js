@@ -11,19 +11,23 @@ fs.readdirSync('node_modules')
   });
 
 var config = {
-  target: "node",
+  target: 'node',
+
   resolve: {
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx"]
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
+
   entry: [
     './src/server/index.js'
   ],
+
   output: {
     path: path.resolve('./build/public'),
     filename: '../server.js',
     publicPath: '/public/',
     libraryTarget: 'commonjs2'
   },
+
   module: {
     noParse: [
       /node_modules\/couchbase\//
@@ -60,7 +64,9 @@ var config = {
       }
     ]
   },
+
   plugins: [],
+
   node: {
     console: false,
     global: false,
@@ -69,6 +75,7 @@ var config = {
     __filename: false,
     __dirname: false
   },
+
   externals: {
     'jsdom': 'window',
     'cheerio': 'window'
