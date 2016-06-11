@@ -3,7 +3,7 @@ import express = require('express');
 import StarGazer from '../models/stargazer';
 const Api = require('../helpers/api');
 
-export = (app: express.Express) => {
+export = (app: express.Express, io) => {
 
   app.post('/api/saveAll', (req: express.Request, res: express.Response) => {
     const fetchQueue = async.queue(Api.fetchStarGazers, 1);
@@ -18,17 +18,20 @@ export = (app: express.Express) => {
     };
 
     const saveUserAction = (user) => {
+      io.sockets.emit('user', user);
       console.info(`User ${user.login} is saved with location ${user.location}`);
     };
 
     Api.fetchPageCount()
       .then((count) => {
+        console.error('Count', count);
         for (let i = 1; i <= count; i++) {
           fetchQueue.push({
             index: i,
             store: save,
-            run: saveUserAction
-          }, (error?: any, result?: string) => {
+            run: saveUserAction,
+            error: (error) => console.error(error)
+          }, (error?: any) => {
             if (error) {
               throw new Error(error);
             }

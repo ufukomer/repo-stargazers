@@ -5,7 +5,7 @@ import * as Q from 'q';
 
 const client = github.client('aa67f84d72bd5b641d166c9f810293f0494c06da');
 
-const ghrepo = client.repo('ufukomer/node-impala');
+const ghrepo = client.repo('golang/go');
 
 /**
  * Callback Interface.
@@ -19,7 +19,7 @@ interface ICallback {
 export function fetchPageCount(callback?: ICallback): any {
   const deferred = Q.defer();
   const options = {
-    uri: 'https://api.github.com/repos/ufukomer/node-impala/stargazers',
+    uri: 'https://api.github.com/repos/golang/go/stargazers',
     headers: {
       'User-Agent': 'repo-stargazers'
     }
@@ -42,9 +42,9 @@ export function fetchPageCount(callback?: ICallback): any {
     }
     deferred.resolve(text);
   })
-  .on('error', (error) => {
-    deferred.reject(error);
-  });
+    .on('error', (error) => {
+      deferred.reject(error);
+    });
 
   deferred.promise.nodeify(callback);
   return deferred.promise;
@@ -80,7 +80,7 @@ export function fetchStarGazers(task?: any, callback?: ICallback): void {
             task.run(userWithLocation);
           })
           .catch((error) => {
-            callback(error);
+            task.error(error);
           });
       });
     }

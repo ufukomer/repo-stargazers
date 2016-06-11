@@ -42,6 +42,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "request": "*",
+    "socket.io": "^1.4.6",
     "ts-node": "^0.7.3",
     "tsd": "^0.6.5",
     "typescript": "^1.8.10",

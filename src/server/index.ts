@@ -1,7 +1,9 @@
+import * as io from 'socket.io';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import webpack = require('webpack');
+const { createServer } =  require('http');
 
 /**
  * The Server Interface.
@@ -21,6 +23,8 @@ interface IServer {
 class Server implements IServer {
 
   public app: express.Application;
+  public http;
+  public socket;
 
   /**
    * Bootstrap the application.
@@ -41,6 +45,9 @@ class Server implements IServer {
    */
   constructor() {
     this.app = express();
+    this.http = createServer(this.app);
+    this.socket = io.listen(this.http);
+
     this.config();
     this.routes();
   }
@@ -53,6 +60,7 @@ class Server implements IServer {
    * @return void
    */
   public config() {
+    this.socket.on('connection', () => console.info('Connected.'));
     if (process.env.NODE_ENV !== 'production') {
       const webpack = require('webpack');
       const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -86,9 +94,9 @@ class Server implements IServer {
    * @return void
    */
   public routes() {
-    require('./routes/routes.ts')(this.app);
+    require('./routes/routes.ts')(this.app, this.socket);
   }
 }
 
 const server = Server.bootstrap();
-export = server.app;
+export = server.http;
