@@ -1,6 +1,4 @@
-import * as async from 'async';
 import { IStargazer, IStargazerAction } from './stargazer.model';
-import * as Api from '../../../../server/helpers/api';
 
 /** Action Types **/
 export const SAVE_REQUEST = 'SAVE_REQUEST';
@@ -30,7 +28,7 @@ export function stargazerReducer(state = initialState, action: IStargazerAction)
 }
 
 /** Async Action Creator **/
-export function saveStargazers(): Redux.Dispatch {
+/*export function saveStargazers(): Redux.Dispatch {
   const fetchQueue = async.queue(Api.fetchStarGazers, 1);
 
   const saveUserAction = (user) => {
@@ -60,7 +58,7 @@ export function saveStargazers(): Redux.Dispatch {
         console.info('Fetching is done.');
       });
   };
-}
+}*/
 
 /** Action Creator **/
 export function stargazerRequest(): IStargazerAction {
