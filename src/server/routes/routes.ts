@@ -3,11 +3,12 @@ import express = require('express');
 import StarGazer from '../models/stargazer';
 const Api = require('../helpers/api');
 
+const fetchQueue = async.queue(Api.fetchStarGazers, 1);
+const databaseQueue = async.queue(StarGazer.save, 1);
+
 export = (app: express.Express, io) => {
 
   app.post('/api/saveAll', (req: express.Request, res: express.Response) => {
-    const fetchQueue = async.queue(Api.fetchStarGazers, 1);
-    const databaseQueue = async.queue(StarGazer.save, 1);
 
     const save = (user) => {
       databaseQueue.push(user, (error: any) => {

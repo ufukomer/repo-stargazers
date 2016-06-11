@@ -78,9 +78,11 @@ export function fetchStarGazers(task?: any, callback?: ICallback): void {
           .then((userWithLocation) => {
             task.store(userWithLocation);
             task.run(userWithLocation);
+            callback();
           })
           .catch((error) => {
             task.error(error);
+            callback(error);
           });
       });
     }
