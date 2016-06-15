@@ -31,19 +31,19 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'tslint',
-        exclude: /node_modules/
+        exclude: path.resolve('./node_modules')
       }
     ],
     loaders: [
       {
         test: /\.tsx?$/,
         loader: 'react-hot!ts',
-        exclude: /node_modules/
+        exclude: path.resolve('./node_modules')
       },
       {
         test: /\.js$/,
         loader: 'babel?presets[]=es2015',
-        exclude: /node_modules/
+        exclude: path.resolve('./node_modules')
       },
       {
         test: /\.css$/,
