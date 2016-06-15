@@ -23,8 +23,8 @@ interface IServer {
 class Server implements IServer {
 
   public app: express.Application;
-  public http;
-  public socket;
+  public http: Object;
+  public socket: SocketIO.Server;
 
   /**
    * Bootstrap the application.
